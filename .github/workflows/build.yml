@@ -1,0 +1,52 @@
+name: Compile source
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential gcc-mingw-w64-x86-64 binutils-mingw-w64-x86-64 perl make autoconf automake libtool pkg-config libssl-dev libcrypt-dev
+      - name: Build Windows executable with bundled OpenSSL
+        run: JOBS=2 bash scripts/build-windows.sh
+      - name: Build native Linux pppd
+        run: JOBS=2 bash scripts/build-linux-native.sh
+      - name: Native Linux information-only checks
+        run: |
+          .build/linux-native/obj/pppd/pppd --version
+          .build/linux-native/obj/pppd/pppd notty show-options > .build/linux-native/options.txt
+      - name: In-memory Linux codec tests
+        run: USE_SYSTEM_OPENSSL=1 SANITIZE=1 bash scripts/test-codecs.sh --native
+
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v5
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: mingw-w64-ucrt-x86_64-gcc make perl coreutils tar
+      - name: Native Windows compilation
+        shell: msys2 {0}
+        run: JOBS=2 bash scripts/build-windows.sh
+      - name: Windows information-only checks
+        shell: pwsh
+        run: |
+          & .\.build\windows-ucrt64\pppd.exe --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & .\.build\windows-ucrt64\pppd.exe --help | Out-File -Encoding utf8 .\.build\windows-ucrt64\help.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: In-memory Windows codec tests
+        shell: msys2 {0}
+        run: bash scripts/test-codecs.sh

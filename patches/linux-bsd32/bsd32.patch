@@ -1,0 +1,53 @@
+--- original/bsd_comp.c
++++ bsd_comp.c
+@@ -568,7 +568,7 @@
+     unsigned int max_ent;
+     unsigned int n_bits;
+     unsigned int bitno;
+-    unsigned long accm;
++    u32 accm; /* exact 32-bit code accumulator on LP64 and ILP32 */
+     int ent;
+     unsigned long fcode;
+     struct bsd_dict *dictp;
+@@ -596,7 +596,7 @@
+ #define OUTPUT(ent)			\
+   {					\
+     bitno -= n_bits;			\
+-    accm |= ((ent) << bitno);		\
++    accm |= ((u32)(ent) << bitno);		\
+     do					\
+       {					\
+ 	PUTBYTE(accm >> 24);		\
+@@ -765,7 +765,7 @@
+ 
+     if (bitno != 32)
+       {
+-	PUTBYTE((accm | (0xff << (bitno-8))) >> 24);
++	PUTBYTE((accm | (0xffU << (bitno-8))) >> 24);
+       }
+ 
+     /*
+@@ -829,7 +829,7 @@
+   {
+     struct bsd_db *db;
+     unsigned int max_ent;
+-    unsigned long accm;
++    u32 accm; /* exact 32-bit code accumulator on LP64 and ILP32 */
+     unsigned int bitno;		/* 1st valid bit in accm */
+     unsigned int n_bits;
+     unsigned int tgtbitno;	/* bitno when we have a code */
+@@ -918,7 +918,7 @@
+ 	 */
+ 
+ 	bitno -= 8;
+-	accm  |= *ibuf++ << bitno;
++	accm  |= (u32)*ibuf++ << bitno;
+ 	if (tgtbitno < bitno)
+ 	  {
+ 	    continue;
+@@ -1167,4 +1167,5 @@
+ module_init(bsdcomp_init);
+ module_exit(bsdcomp_cleanup);
+ MODULE_LICENSE("Dual BSD/GPL");
++MODULE_VERSION("0.4.0-bsd32");
+ MODULE_ALIAS("ppp-compress-" __stringify(CI_BSD_COMPRESS));

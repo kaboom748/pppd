@@ -1,0 +1,201 @@
+Upstream pppd 2.5.5 commit 4dc474cacfa045d1ee1b10c388d8c864e3ed3b30.
+The auth packet machines and fallback crypto algorithms retain upstream code.
+The Windows CLI parses options; upstream option descriptor tables are replaced by empty tables.
+Unix system-account/PAM authentication is excluded; explicit secret files are used.
+This pppd mppe source derives keys; packet encryption is supplied separately by src/mppe_port.c and the retained Linux MPPE codec in 0.4.0.
+TLS/PEAP are compiled only when their static OpenSSL dependencies are available.
+CBCP uses the original client protocol: an explicit callback number requests
+callback by the remote peer, and its acknowledgement terminates with status 14.
+No local modem dialler, call or reconnection is simulated.
+
+Host adaptations and corrections:
+- Windows COM/Wintun output and monotonic timers replace Unix runtime calls.
+- BCryptGenRandom (Windows) / getrandom (Linux tests) supplies original auth
+  challenge generation; no predictable PPP magic-number generator is used.
+- Original getword, scan_authfile and string formatter are retained in
+  auth_upstream.inc. Explicit secret files are protected by Windows ownership,
+  ACL and reparse checks (or strict POSIX file permissions in the native lab).
+  Literal IPv4/CIDR, '*' and '-' address rules are supported. Unimplemented
+  hostname rules or per-peer options are rejected instead of being ignored.
+- The MPPE key functions are compiled as PPP_WITH_MPPE_KEYS for MSCHAP/PEAP
+  compound authentication. CCP negotiation and packet encryption are now implemented separately in ccp.c and the data path in 0.4.0.
+- The digest registry and MSCHAP response cache reset for each host link init.
+- SHA1 explicitly includes stdint.h and uses winsock2.h on Windows.
+- MD4's fallback padding copies only complete input bytes, rather than reading
+  one byte past a byte-aligned input. ASAN detected this inherited overread on
+  the 16-byte password hash. Padding and resulting MD4 digests are unchanged.
+  Input bytes are cast to unsigned before 24-bit shifts, removing inherited
+  signed-shift undefined behaviour without changing MD4 arithmetic/results.
+- LCP RTT formatting preserves upstream %v/%q/%I etc; no Unix mmap is required
+  by these authentication sources. The unused %P formatter branch is omitted.
+- EAP-TLS client certificate verification uses client=true so that a server
+  certificate is checked for serverAuth, rather than clientAuth. Sessions are
+  zero-initialized and cleaned up on init errors and link shutdown.
+  Local EVP_PKEY/X509 references are released after SSL_CTX retains them;
+  chain ownership is transferred without retaining duplicate stack ownership.
+  The ticket callback returns zero because it does not retain an external
+  SSL_SESSION reference. ASAN/LeakSanitizer checks normal and failed sessions.
+- EAP-MSCHAPv2 retains the inner CHAP identifier when sending the authenticator
+  response, waits for the client's confirmation before outer EAP Success and
+  network activation, and rejects failed mutual authentication even if an
+  invalid outer EAP Success subsequently arrives. Retry uses the same message.
+- PEAP retains upstream TLS, MSCHAPv2 and compound-MAC algorithms. The existing
+  Result-TLV prefix also accepts the complete 11-byte Result-only exchange used
+  by FreeRADIUS PEAPv0. It copies the request template into an EAP response,
+  requires successful inner mutual authentication, and waits for both a
+  successful Result TLV and outer EAP Success before granting the link.
+  Result fields are defined by MS-PEAP 2.2.8.1.2:
+  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-peap/8de89eb4-b4dc-4949-b826-0c30033c4d23
+  PEAP initialization is zeroed; separate TLS buffers are freed on shutdown;
+  errors from trust configuration, random generation and MAC verification fail
+  the authentication. The cryptobinding packet path is retained.
+- CBCP validates option bounds/types and ACK identifiers before changing state.
+- Authentication cleanup is deferred until a packet callback returns, so that
+  an LCP close caused by failed TLS authentication cannot free a live callback.
+
+Inherited PEAP limitations remain: client role, no fast reconnect, no inner
+EAP fragmentation, no general retransmission handling. Cryptobinding remains
+available, while no IP data encryption is claimed.
+
+Validation: auth_interop.py exchanges real packets between independent protocol
+processes, including password failures, TLS 1.2/1.3, invalid CA, wrong name/EKU,
+forged MSCHAPv2 authenticator response plus outer Success, and CBCP packets.
+Additional lab tests exercise native Linux pppd and an independent FreeRADIUS
+PEAP authenticator. Test result artifacts are in the package tests directory.
+
+utils.c
+/*
+ * utils.c - various utility functions used in pppd.
+ *
+ * Copyright (c) 1999-2024 Paul Mackerras. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO
+ * THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+ * SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
+ * AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+ * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
+options.c
+/*
+ * options.c - handles option processing for PPP.
+ *
+ * Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. The name "Carnegie Mellon University" must not be used to
+ *    endorse or promote products derived from this software without
+ *    prior written permission. For permission or any legal
+ *    details, please contact
+ *      Office of Technology Transfer
+ *      Carnegie Mellon University
+ *      5000 Forbes Avenue
+ *      Pittsburgh, PA  15213-3890
+ *      (412) 268-4387, fax: (412) 268-7395
+ *      tech-transfer@andrew.cmu.edu
+ *
+ * 4. Redistributions of any form whatsoever must retain the following
+ *    acknowledgment:
+ *    "This product includes software developed by Computing Services
+ *     at Carnegie Mellon University (http://www.cmu.edu/computing/)."
+ *
+ * CARNEGIE MELLON UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO
+ * THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY BE LIABLE
+ * FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
+ * AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+ * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
+auth.c
+/*
+ * auth.c - PPP authentication and phase control.
+ *
+ * Copyright (c) 1993-2024 Paul Mackerras. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * THE AUTHORS OF THIS SOFTWARE DISCLAIM ALL WARRANTIES WITH REGARD TO
+ * THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
+ * SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
+ * AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+ * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ * Derived from main.c, which is:
+ *
+ * Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *
+ * 3. The name "Carnegie Mellon University" must not be used to
+ *    endorse or promote products derived from this software without
+ *    prior written permission. For permission or any legal
+ *    details, please contact
+ *      Office of Technology Transfer
+ *      Carnegie Mellon University
+ *      5000 Forbes Avenue
+ *      Pittsburgh, PA  15213-3890
+ *      (412) 268-4387, fax: (412) 268-7395
+ *      tech-transfer@andrew.cmu.edu
+ *
+ * 4. Redistributions of any form whatsoever must retain the following
+ *    acknowledgment:
+ *    "This product includes software developed by Computing Services
+ *     at Carnegie Mellon University (http://www.cmu.edu/computing/)."
+ *
+ * CARNEGIE MELLON UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO
+ * THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS, IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY BE LIABLE
+ * FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
+ * AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
+ * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */

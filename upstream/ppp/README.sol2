@@ -1,0 +1,110 @@
+Introduction.
+*************
+
+  This file describes the installation process for ppp-2.5 on systems
+  running an OpenSolaris-derived OS, such as Illumos or OpenIndiana.
+  For these systems, the STREAMS kernel modules are supplied with the
+  OS itself and are used as-is by this distribution. For more
+  information on these distributions (including kernel source) see:
+
+    https://www.illumos.org/
+    https://illumos.org/docs/about/distro/
+
+  For Oracle Solaris systems, either use the vendor-supplied PPP
+  implementation ("Solaris PPP 4.0" based on pppd-2.4.0), or download
+  an older version of the pppd sources here:
+
+    https://download.samba.org/pub/ppp/
+
+  The last version known to compile and run correctly on Oracle
+  Solaris 10 is pppd-2.4.8. It may be possible to compile and use
+  newer versions on either Solaris 11 or by installing third-party
+  compilers; this has not been tested.
+
+
+Installation.
+*************
+
+1. Make sure you have a suitable compiler installed. This package was
+   tested with "pkg install gcc-14" but other modern compilers should
+   work.
+
+2. Run the configure script and build the package.
+
+     ./configure --with-runtime-dir=/var/run --with-logfile-dir=/var/log/ppp
+     make
+
+   The configure script will automatically find the compiler if it's in
+   the standard location (/usr/bin/gcc). By default, everything will be
+   installed in /usr/local. Use "--prefix" to choose a different
+   installation directory if desired. Use "./configure -h" to see other
+   options.
+
+3. Install the programs.
+
+     sudo make install
+
+   This installs the following:
+
+     /usr/local/sbin            pppd, chat, pppstats, pppdump
+     /usr/local/share/man/man8  man pages
+     /usr/local/include/pppd    plug-in header files
+     /usr/local/lib/pppd/$VER	plug-in modules
+     /usr/local/etc/ppp         example configuration files
+    
+   If your system normally has only one network interface at boot
+   time, the default Solaris system startup scripts will disable IP
+   forwarding in the IP kernel module.  This will prevent the remote
+   machine from using the local machine as a gateway to access other
+   hosts.  The solution is to create an /etc/ppp/ip-up script
+   containing something like this:
+
+     #!/bin/sh
+     /usr/sbin/ndd -set /dev/ip ip_forwarding 1
+
+   See the man page for ip(7p) for details.
+
+
+Synchronous Serial Support.
+***************************
+
+  This version has working but limited support for the on-board
+  synchronous HDLC interfaces.  It has been tested with the
+  /dev/se_hdlc, /dev/zsh, HSI/S, and HSI/P drivers.  Synchronous mode
+  was tested with a Cisco router.
+
+  The ppp daemon does not directly support controlling the serial
+  interface.  It relies on the OS-supplied /usr/sbin/syncinit command
+  to initialize HDLC mode and clocking.
+
+  How to start pppd with synchronous support:
+
+	#!/bin/sh
+
+	local=1.1.1.1   # your ip address here
+	baud=38400	# needed, but ignored by serial driver
+
+	# Change to the correct serial driver/port
+	#dev=/dev/zsh0
+	dev=/dev/se_hdlc0
+ 
+	# Change the driver, nrzi mode, speed and clocking to match
+	# your setup.
+	# This configuration is for external clocking from the DCE
+	connect="syncinit se_hdlc0 nrzi=no speed=64000 txc=rxc rxc=rxc"
+ 
+	/usr/sbin/pppd $dev sync $baud novj noauth $local: connect "$connect"
+
+  Sample Cisco router config excerpt:
+
+	!
+	! Cisco router setup as DCE with RS-232 DCE cable
+	! 
+	!         
+	interface Serial0
+	 ip address 1.1.1.2 255.255.255.0
+	 encapsulation ppp
+	 clockrate 64000
+	 no nrzi-encoding
+	 no shutdown
+	!         

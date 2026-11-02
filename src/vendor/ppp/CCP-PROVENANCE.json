@@ -1,0 +1,13 @@
+{
+  "upstream": "pppd 2.5.5",
+  "commit": "4dc474cacfa045d1ee1b10c388d8c864e3ed3b30",
+  "original_sha256": "72e7471a547db744978f3dec9681e93ec2e83f59d16937453e8577742f041166",
+  "adaptations": [
+    "Original CCP FSM and negotiation callbacks retained; Unix option descriptors/parsers replaced by Windows options.c.",
+    "Linux ccp_test/ccp_flags_set/ccp_fatal_error implemented by data_port.c callback host.",
+    "One event loop, bounded normalized PPP buffers; no kernel modules are loaded by the Windows program.",
+    "Predictor capabilities disabled because no codec is provided.",
+    "Authentication completion bits and MPPE network-start gating connected to the existing host.",
+    "Integer signedness diagnostic corrected in packet printer."
+  ]
+}

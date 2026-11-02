@@ -1,0 +1,158 @@
+{
+  "project": "Linux PPP compression engines and PPP zlib",
+  "version": "v6.1",
+  "tag_url": "https://github.com/torvalds/linux/tree/v6.1",
+  "algorithms": [
+    "BSD-Compress 9..15 bits",
+    "PPP Deflate 9..15 bits",
+    "PPP Deflate draft negotiation"
+  ],
+  "adaptations": [
+    "Kernel includes, allocation/free and module registration replaced by userspace adapter; compression algorithms retained.",
+    "BSD unsigned comparison casts remove compiler diagnostics without changing comparison semantics.",
+    "BSD bit accumulator is explicitly uint32_t as required by its original algorithm; shifts use unsigned operands to avoid signed-shift undefined behavior on Windows/Linux64.",
+    "Kernel inflater alignment pointer cast uses uintptr_t instead of long for Windows LLP64.",
+    "Kernel bitrev32 mask sequence adapted into zlib_compat.h; conditional hardware acceleration disabled.",
+    "Bounded host API validates input frames, option lengths, MTU/MRU and output buffers."
+  ],
+  "files": [
+    {
+      "origin": "drivers/net/ppp/bsd_comp.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/drivers/net/ppp/bsd_comp.c",
+      "original_sha256": "f88876a2ffdc2ccc0442e205a573bcbbc8b5cfe004c947944a9ed53880a60d96",
+      "compiled": "bsd_comp.c",
+      "compiled_sha256": "495e5e9f1448815b53ffd0ac434ce1451041e1e8970176386c58de8bb09a2d7d"
+    },
+    {
+      "origin": "drivers/net/ppp/ppp_deflate.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/drivers/net/ppp/ppp_deflate.c",
+      "original_sha256": "75ed09ad8b94017a2550c5ecea7783b649462d492e44251ff07c41853736bf4c",
+      "compiled": "ppp_deflate.c",
+      "compiled_sha256": "07c2792c6e3ca06415130fa4f9954077d5d2ea6eae626888c0771d03a2e7e18b"
+    },
+    {
+      "origin": "include/linux/zconf.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/linux/zconf.h",
+      "original_sha256": "96b4ce7aea8e296bf237d81140652a7e4db65a4a1e0f84c2f9d45bb72f042e16",
+      "compiled": "zconf.h",
+      "compiled_sha256": "5081fc0eb6effc30925b0af1132e4451cf8445c3b2e2f76e3d0acc203c3cfb1d"
+    },
+    {
+      "origin": "include/linux/zlib.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/linux/zlib.h",
+      "original_sha256": "d9cf46ddd4aef275106faa39e1c510b07d0639f04d119e73bcbb5b647bd9eb65",
+      "compiled": "zlib.h",
+      "compiled_sha256": "84b2e668447fe08a77e9f136a0e0ca440256793f41e4571d63fecca70a62d85c"
+    },
+    {
+      "origin": "include/linux/zutil.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/linux/zutil.h",
+      "original_sha256": "abd2699dc70a2ac45038eaf6f88d42353926c3b5015950f457c211582e95c7c1",
+      "compiled": "zutil.h",
+      "compiled_sha256": "659cf218c54e3df99aa4b1121feb340ca55a92113ddb75d04112863e33a163eb"
+    },
+    {
+      "origin": "lib/zlib_deflate/deflate.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_deflate/deflate.c",
+      "original_sha256": "816738f1c98b7c82cc5fabd7d0b904aedd624222133ecb7f121945eb3fc1594e",
+      "compiled": "zlib_deflate/deflate.c",
+      "compiled_sha256": "55e0cea85d0deb6cfae22b45c852c3fc9dcd2cfdb59f759b8e1d4bd63c217d24"
+    },
+    {
+      "origin": "lib/zlib_deflate/deftree.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_deflate/deftree.c",
+      "original_sha256": "4e66a583a6049beeb618a7610762811988497e775415145aeb576d59a24fcf84",
+      "compiled": "zlib_deflate/deftree.c",
+      "compiled_sha256": "7a4dadef481a3a06595af507cef07247b36b3cb934bd2d4913764015444b0ad6"
+    },
+    {
+      "origin": "lib/zlib_deflate/defutil.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_deflate/defutil.h",
+      "original_sha256": "113343fe789d30d5a4cd84d3bc4078ca76e14ffbce6b6fadcdcd41ad6e4dd147",
+      "compiled": "zlib_deflate/defutil.h",
+      "compiled_sha256": "80370f74641f1b78abfae2c44cd1fb8ccbc65e1a12f986d378094c005142b6ac"
+    },
+    {
+      "origin": "lib/zlib_inflate/inffast.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inffast.c",
+      "original_sha256": "22801fe981eddd9a3a09b937efecff7e5b780259474a9784a4439509a49165ac",
+      "compiled": "zlib_inflate/inffast.c",
+      "compiled_sha256": "3d364b0a17c8bd3c3dfc9db6dd22db51fee4907ed5d8dbf05309f6ec43e5c34f"
+    },
+    {
+      "origin": "lib/zlib_inflate/inffast.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inffast.h",
+      "original_sha256": "5b3101e5c251432b3bf7b00d108105f8a3d26a94bc2f7a5e8cd33fc243699d76",
+      "compiled": "zlib_inflate/inffast.h",
+      "compiled_sha256": "2b7e9710661bb8c557f3925230ad19c11e26da3e876a6cad45fea250461d8445"
+    },
+    {
+      "origin": "lib/zlib_inflate/inffixed.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inffixed.h",
+      "original_sha256": "88a340c8e628d56682a99c3a9a38e44fafeb8b4c609e0df85ea17c66011e0f42",
+      "compiled": "zlib_inflate/inffixed.h",
+      "compiled_sha256": "7406cde48ef769f7b137c333843a73f9b25def9532a1d8ff54d7297c4a7bd878"
+    },
+    {
+      "origin": "lib/zlib_inflate/inflate.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inflate.c",
+      "original_sha256": "a2cd540f148381aee90fca70d2e3eb4a7480a132c94d34f2a2db731d73623fc1",
+      "compiled": "zlib_inflate/inflate.c",
+      "compiled_sha256": "1df0fb31005f5ebf6a6a07226ff53fd39232995e7b90b83f2b236a8c3c0bd469"
+    },
+    {
+      "origin": "lib/zlib_inflate/inflate.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inflate.h",
+      "original_sha256": "16faa7c5902264439e12f6b6062fc260e53798b8ac8f2f0a187c958506e92243",
+      "compiled": "zlib_inflate/inflate.h",
+      "compiled_sha256": "09b4d1c080bf6b22feb464f73413acc92638aad6063a1c4fb3f6002098b32e4d"
+    },
+    {
+      "origin": "lib/zlib_inflate/inftrees.c",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inftrees.c",
+      "original_sha256": "aae006184419e407c703efd51e4c9267bf5459287e4869fb63397f48502b9dc3",
+      "compiled": "zlib_inflate/inftrees.c",
+      "compiled_sha256": "033d99c3cbf5f259a3d7c31796998b47cd9ac92948f235cc818cd082de4da51a"
+    },
+    {
+      "origin": "lib/zlib_inflate/inftrees.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/inftrees.h",
+      "original_sha256": "b07a23beb8ea744842482c6857b7a764f4089199de9146d5f735a0a411d353df",
+      "compiled": "zlib_inflate/inftrees.h",
+      "compiled_sha256": "c78487eef0a7986ccc1424ab5b521b7374e6f82edf2c54f197ca0be531fd604b"
+    },
+    {
+      "origin": "lib/zlib_inflate/infutil.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/lib/zlib_inflate/infutil.h",
+      "original_sha256": "648c7d6acfe856fcf0674032c085a8be88bec197f124ec35deeef70d857dd6fb",
+      "compiled": "zlib_inflate/infutil.h",
+      "compiled_sha256": "c9980e601b5c7b7826819acd32973ab27271ae0d038b498cd400cdf4ae1e1afc"
+    }
+  ],
+  "adapter_origins": [
+    {
+      "origin": "include/uapi/linux/ppp-comp.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/uapi/linux/ppp-comp.h",
+      "original_sha256": "5887429daff633c01d25c1e5325534b29e7131c6b01e3babaa2867dce0e861d0",
+      "adapted_in": "ppp_comp_defs.h"
+    },
+    {
+      "origin": "include/linux/ppp-comp.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/linux/ppp-comp.h",
+      "original_sha256": "472499b763a21eec2c99975f749281adb1712a8fc987fc1f455efb77f8d98f22",
+      "adapted_in": "codec_compat.h"
+    },
+    {
+      "origin": "include/uapi/linux/ppp_defs.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/uapi/linux/ppp_defs.h",
+      "original_sha256": "c6dd1a9c1c2287a6547a135c2b71f29a107b03acb6b50c9f4a81809604ee3de8",
+      "adapted_in": "codec_compat.h"
+    },
+    {
+      "origin": "include/linux/bitrev.h",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/v6.1/include/linux/bitrev.h",
+      "original_sha256": "2804437147c0b1e96d7ce4b2bfae9e345278f2dba96ecef9d7e733072b1ca774",
+      "adapted_in": "zlib_compat.h"
+    }
+  ]
+}

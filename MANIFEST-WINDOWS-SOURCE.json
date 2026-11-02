@@ -1,0 +1,526 @@
+{
+  "version": "0.4.0",
+  "source_files": 104,
+  "files": [
+    {
+      "path": "src/auth_port.c",
+      "bytes": 20216,
+      "sha256": "e738d93b47cc2ef52b64c1f4d46333e46dc9ab70c80003f044b45f54388dbc24"
+    },
+    {
+      "path": "src/auth_port.h",
+      "bytes": 1541,
+      "sha256": "e66a3e7d61b09b30b1a5f531f6e53ee90d3bf0289f39b9d7581d6b5eb45cb631"
+    },
+    {
+      "path": "src/catalogue.inc",
+      "bytes": 82153,
+      "sha256": "d05219a9bf1605b0b867bf0c8a9a49311e4ae3b90bf19eae858124f1af525afa"
+    },
+    {
+      "path": "src/compress_port.c",
+      "bytes": 2497,
+      "sha256": "775fa02b26a81eb98ce08dee2e908a67eb93ddfbe8f73a390cffb8c9a5f749fa"
+    },
+    {
+      "path": "src/compress_port.h",
+      "bytes": 1157,
+      "sha256": "0be9ae60f1def36cd9f298953736c04083eecb46848a124a4fd3d2215afc74bb"
+    },
+    {
+      "path": "src/data_options.h",
+      "bytes": 573,
+      "sha256": "62573009dd59e302c4d8d8e873052ec74bbb738547438b97f544aec854c4f515"
+    },
+    {
+      "path": "src/data_port.c",
+      "bytes": 5488,
+      "sha256": "ca8cb72c3fce1af07fefb79b80d711a78a1531a045836aa32b6dcce94bf47f88"
+    },
+    {
+      "path": "src/data_port.h",
+      "bytes": 549,
+      "sha256": "1c70ce7b295aa147201c641b6b80082d8ca9429d6f40e758ccf64c47b6509306"
+    },
+    {
+      "path": "src/engine.c",
+      "bytes": 25461,
+      "sha256": "5c58f40719e4b9c776245a0e76b8b44ad8294af143aee3782124a93df7676ca2"
+    },
+    {
+      "path": "src/engine.h",
+      "bytes": 3805,
+      "sha256": "c2e18d1ccb2e982a2fa1617ba9e02ee6f8071c0fc1e9387998f964fc2eb439b8"
+    },
+    {
+      "path": "src/main.c",
+      "bytes": 37231,
+      "sha256": "71cdc02167bb5245740df96a4d84ca9dab7f5605a7f4d1043a89f631f93b38a8"
+    },
+    {
+      "path": "src/mppe_port.c",
+      "bytes": 170,
+      "sha256": "a6d85a9c66db545ec4b5fab5463f350f94441c4c2d6b651c4691843fdc47c65f"
+    },
+    {
+      "path": "src/mppe_port.h",
+      "bytes": 512,
+      "sha256": "c32c01229d67e0592798ac8185bdfbef9bdf5c031cc3d64d3e7847f754f1d665"
+    },
+    {
+      "path": "src/options.c",
+      "bytes": 51248,
+      "sha256": "ad24b51467f79e1fece83a962d4a45792d7c528f21464f4da017fd65639e7386"
+    },
+    {
+      "path": "src/options.h",
+      "bytes": 1646,
+      "sha256": "e198a40b7f2af7be123850b265ff790f488a7acb204ee46192dc07466fd871db"
+    },
+    {
+      "path": "src/platform_network.inc",
+      "bytes": 6749,
+      "sha256": "69ac6ea40c8bfd5ee8f545e25ae06e573e5a03926f00bfde20f74ce8e77d6ef3"
+    },
+    {
+      "path": "src/platform_win.c",
+      "bytes": 28304,
+      "sha256": "943f2ed39e42fdba2abcf73f91d0b2ff16ef9cff42da287236dc1ce6b4c68611"
+    },
+    {
+      "path": "src/platform_win.h",
+      "bytes": 2038,
+      "sha256": "dde75147c086c738319d510cd728f10247fd443f6145a5b444f8d8f30649bcf9"
+    },
+    {
+      "path": "src/vendor/codecs/bsd_comp.c",
+      "bytes": 29211,
+      "sha256": "495e5e9f1448815b53ffd0ac434ce1451041e1e8970176386c58de8bb09a2d7d"
+    },
+    {
+      "path": "src/vendor/codecs/codec_compat.h",
+      "bytes": 2581,
+      "sha256": "ed7e03dd5acbb03fc18d969ce7d0e7911df76c7129bb30ffcc1f95d94084dd14"
+    },
+    {
+      "path": "src/vendor/codecs/ppp_comp_defs.h",
+      "bytes": 2542,
+      "sha256": "5887429daff633c01d25c1e5325534b29e7131c6b01e3babaa2867dce0e861d0"
+    },
+    {
+      "path": "src/vendor/codecs/ppp_deflate.c",
+      "bytes": 17515,
+      "sha256": "07c2792c6e3ca06415130fa4f9954077d5d2ea6eae626888c0771d03a2e7e18b"
+    },
+    {
+      "path": "src/vendor/codecs/zconf.h",
+      "bytes": 1845,
+      "sha256": "5081fc0eb6effc30925b0af1132e4451cf8445c3b2e2f76e3d0acc203c3cfb1d"
+    },
+    {
+      "path": "src/vendor/codecs/zlib.h",
+      "bytes": 28854,
+      "sha256": "84b2e668447fe08a77e9f136a0e0ca440256793f41e4571d63fecca70a62d85c"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_compat.h",
+      "bytes": 788,
+      "sha256": "f65461bafb29a0bd8ff97733af277cb9ae7dbe1cc600ce6e802fad750d6d5646"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_deflate/deflate.c",
+      "bytes": 41306,
+      "sha256": "55e0cea85d0deb6cfae22b45c852c3fc9dcd2cfdb59f759b8e1d4bd63c217d24"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_deflate/deftree.c",
+      "bytes": 38911,
+      "sha256": "7a4dadef481a3a06595af507cef07247b36b3cb934bd2d4913764015444b0ad6"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_deflate/defutil.h",
+      "bytes": 15109,
+      "sha256": "80370f74641f1b78abfae2c44cd1fb8ccbc65e1a12f986d378094c005142b6ac"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inffast.c",
+      "bytes": 12474,
+      "sha256": "3d364b0a17c8bd3c3dfc9db6dd22db51fee4907ed5d8dbf05309f6ec43e5c34f"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inffast.h",
+      "bytes": 478,
+      "sha256": "2b7e9710661bb8c557f3925230ad19c11e26da3e876a6cad45fea250461d8445"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inffixed.h",
+      "bytes": 6418,
+      "sha256": "7406cde48ef769f7b137c333843a73f9b25def9532a1d8ff54d7297c4a7bd878"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inflate.c",
+      "bytes": 28163,
+      "sha256": "1df0fb31005f5ebf6a6a07226ff53fd39232995e7b90b83f2b236a8c3c0bd469"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inflate.h",
+      "bytes": 5920,
+      "sha256": "09b4d1c080bf6b22feb464f73413acc92638aad6063a1c4fb3f6002098b32e4d"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inftrees.c",
+      "bytes": 13407,
+      "sha256": "033d99c3cbf5f259a3d7c31796998b47cd9ac92948f235cc818cd082de4da51a"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/inftrees.h",
+      "bytes": 2474,
+      "sha256": "c78487eef0a7986ccc1424ab5b521b7374e6f82edf2c54f197ca0be531fd604b"
+    },
+    {
+      "path": "src/vendor/codecs/zlib_inflate/infutil.h",
+      "bytes": 1132,
+      "sha256": "c9980e601b5c7b7826819acd32973ab27271ae0d038b498cd400cdf4ae1e1afc"
+    },
+    {
+      "path": "src/vendor/codecs/zutil.h",
+      "bytes": 2855,
+      "sha256": "659cf218c54e3df99aa4b1121feb340ca55a92113ddb75d04112863e33a163eb"
+    },
+    {
+      "path": "src/vendor/mppe-codec/arc4.c",
+      "bytes": 1052,
+      "sha256": "67de3621a312139111beb08db83d56473dfbeb90ee66cc529924f5336249e06c"
+    },
+    {
+      "path": "src/vendor/mppe-codec/arc4.h",
+      "bytes": 509,
+      "sha256": "8d1747e4f88af40a3b6a243d47d192d7df3c80adf362b973d6f2c34796ad54a0"
+    },
+    {
+      "path": "src/vendor/mppe-codec/ppp_mppe.c",
+      "bytes": 18398,
+      "sha256": "5b1d02862ad512f050fdc4ece2a57368d65930bf0bde928e5cecda6a6858ba2b"
+    },
+    {
+      "path": "src/vendor/mppe-codec/upstream/arc4.c",
+      "bytes": 1116,
+      "sha256": "d675cd2c5c95c49e3a2884d70627c76386b5184605929c734ce959b0397d4c83"
+    },
+    {
+      "path": "src/vendor/mppe-codec/upstream/arc4.h",
+      "bytes": 484,
+      "sha256": "e43e7020d67065497c17a6fa4a7973394dbd2124c88ddb184aa01b10cd5e2748"
+    },
+    {
+      "path": "src/vendor/mppe-codec/upstream/ppp_mppe.c",
+      "bytes": 19673,
+      "sha256": "c8c03dee91f46fabf78d7549c77befaffc2620ca036ed65719a64671c1e2d8e3"
+    },
+    {
+      "path": "src/vendor/mppe-codec/upstream/ppp_mppe.h",
+      "bytes": 4150,
+      "sha256": "fce28ad7db46c234a70bf8d721ba8ad96c7169b0e8461da5561a0bd2877df35c"
+    },
+    {
+      "path": "src/vendor/ppp/auth_upstream.inc",
+      "bytes": 14915,
+      "sha256": "0aeb85cfcd13c9003957c33e3473c1d871b374f63f5f58770347d6b8d2b886b5"
+    },
+    {
+      "path": "src/vendor/ppp/cbcp.c",
+      "bytes": 10109,
+      "sha256": "1b7bf32a1504787fc2e7c71c81b40a71b9d4fe8718ae6886e3ca15491dc9081f"
+    },
+    {
+      "path": "src/vendor/ppp/cbcp.h",
+      "bytes": 2073,
+      "sha256": "5d79761ecc35d0c1228716ab51032d1f35624235e9e5f5364a419c7324a451c7"
+    },
+    {
+      "path": "src/vendor/ppp/ccp.c",
+      "bytes": 39577,
+      "sha256": "0fc03e517427d2f9b20bc5ee6b75815bd598c7d75927ea2a70039d5309bdcefa"
+    },
+    {
+      "path": "src/vendor/ppp/ccp.h",
+      "bytes": 2084,
+      "sha256": "979ed4162f9b895f410ef587cd194a2d1806ae1c3a885456dc8ba1af76599632"
+    },
+    {
+      "path": "src/vendor/ppp/ccp_host.h",
+      "bytes": 276,
+      "sha256": "8117e062e065b25549dbde08057a091fd0402817a1a1de1edf18e2178ce57442"
+    },
+    {
+      "path": "src/vendor/ppp/chap-md5.c",
+      "bytes": 3934,
+      "sha256": "c45ee359e84395083d33fe4af363b9fa8587ee84f4ef674ec0f40072f8dd0dcf"
+    },
+    {
+      "path": "src/vendor/ppp/chap-md5.h",
+      "bytes": 1239,
+      "sha256": "9eb4db1143f19f9a8a1a008a42c87fad7f0fdc7d92b9deea8d5499b88a7ca7dc"
+    },
+    {
+      "path": "src/vendor/ppp/chap.c",
+      "bytes": 17435,
+      "sha256": "0f8161689a96bffe000de38ac0b829e65203a8f1461a6c239e066289ad2a217b"
+    },
+    {
+      "path": "src/vendor/ppp/chap.h",
+      "bytes": 5486,
+      "sha256": "803408229a59c0c3557f5750e1e4b85f2f5a8ebfe41bce086775c24f14d3b2f7"
+    },
+    {
+      "path": "src/vendor/ppp/chap_ms.c",
+      "bytes": 30246,
+      "sha256": "2441312af6460f372ceb321eb3d707ff2a946522f64f29c7d49c03cdd07c412f"
+    },
+    {
+      "path": "src/vendor/ppp/chap_ms.h",
+      "bytes": 3552,
+      "sha256": "c71752104c38d596b41e0a87138285d06f451dfa537d3b117a0629ad6db68dc6"
+    },
+    {
+      "path": "src/vendor/ppp/core_extra.h",
+      "bytes": 620,
+      "sha256": "dea40d2bb09c257273ea76289c37350e057513883022c2b3d850e695d5df27f1"
+    },
+    {
+      "path": "src/vendor/ppp/crypto-priv.h",
+      "bytes": 2235,
+      "sha256": "0b11a1c4b92a97e825792887139845fb4a0580e0800af9fee271d69c64eb7d98"
+    },
+    {
+      "path": "src/vendor/ppp/crypto.c",
+      "bytes": 15397,
+      "sha256": "8830534cd971ceeff4950d34d9bcc8f255d4778387dcf6800b8a58715579ebd6"
+    },
+    {
+      "path": "src/vendor/ppp/crypto.h",
+      "bytes": 3832,
+      "sha256": "7c64a68a84ed791a5897eda5c5ebba83760ced2c3f844e3c7312561cecf18f5f"
+    },
+    {
+      "path": "src/vendor/ppp/crypto_ms.c",
+      "bytes": 8136,
+      "sha256": "23d4b6d217aa884e9f3f8baf7f76ec75d36da8015d04b0195c3a0287a1167442"
+    },
+    {
+      "path": "src/vendor/ppp/crypto_ms.h",
+      "bytes": 2625,
+      "sha256": "0c63fce71cc3b5e248528ab62d61d97865b7e7d4eeb4c4bca1d15bd63b9beafb"
+    },
+    {
+      "path": "src/vendor/ppp/eap-tls.c",
+      "bytes": 35191,
+      "sha256": "cc1037b5c544b45c1b0ce37a62277769ac047634e67f06eb6b775c0d2168787b"
+    },
+    {
+      "path": "src/vendor/ppp/eap-tls.h",
+      "bytes": 3544,
+      "sha256": "a80dd79c4e17b8861a0f5a74aa0747c7cc6c0086d28a9fef878b3ddc87337aec"
+    },
+    {
+      "path": "src/vendor/ppp/eap.c",
+      "bytes": 56210,
+      "sha256": "b2f1d199d0c23117603130efe9809269430b50adb94391b87cc046aaf55bb64f"
+    },
+    {
+      "path": "src/vendor/ppp/eap.h",
+      "bytes": 6415,
+      "sha256": "0edf7444f98e843c2c6299e92fcb809a74e0a3e65e1eef8253a4906946f99b16"
+    },
+    {
+      "path": "src/vendor/ppp/eui64.c",
+      "bytes": 1894,
+      "sha256": "0186da687d796e6ea671eeed5f8457a8c124dae3baafb427f18e1fb4bc2e2a06"
+    },
+    {
+      "path": "src/vendor/ppp/eui64.h",
+      "bytes": 3325,
+      "sha256": "8550cc94cab8a6689f64038031f36bbf7a17b2af1b1a5858e35262b93e97e194"
+    },
+    {
+      "path": "src/vendor/ppp/fsm.c",
+      "bytes": 17725,
+      "sha256": "84ef3590ebd837fbafe1b3551a62287a49b77b2c0b7f7d950ff4a695878a117a"
+    },
+    {
+      "path": "src/vendor/ppp/fsm.h",
+      "bytes": 6163,
+      "sha256": "a28850f842d15ea9462da969d2797aacfc4068f9fbcbcc3a917ce0d49d00897f"
+    },
+    {
+      "path": "src/vendor/ppp/ipcp.c",
+      "bytes": 32341,
+      "sha256": "1f16e074b44a202b8cc4a18f22f6fc640459bdbdf6fe4732d2799d849323a744"
+    },
+    {
+      "path": "src/vendor/ppp/ipcp.h",
+      "bytes": 4678,
+      "sha256": "1490374dcd1d43c86621c16b780da4e7518802c9316045449473ae27549c10e3"
+    },
+    {
+      "path": "src/vendor/ppp/ipv6cp.c",
+      "bytes": 24201,
+      "sha256": "3376797bc8c8f8d2050b32248d6cccfd3be36ecf3caf48fb4c359fefb1e589ea"
+    },
+    {
+      "path": "src/vendor/ppp/ipv6cp.h",
+      "bytes": 7798,
+      "sha256": "f298a4aaba7294aece9a7de2dde48923c53c652a2e483d157367567a1e89ca75"
+    },
+    {
+      "path": "src/vendor/ppp/lcp.c",
+      "bytes": 50560,
+      "sha256": "dcb0a52da3e203d3e0347bd9623e83fb857f70cdc7440e2ba5f3ff0cf54d0ef6"
+    },
+    {
+      "path": "src/vendor/ppp/lcp.h",
+      "bytes": 5987,
+      "sha256": "c735e8bc2ebaa3f96f79bae7ce49d487f9ed088604c09e64db14f7d16869721e"
+    },
+    {
+      "path": "src/vendor/ppp/magic.h",
+      "bytes": 2200,
+      "sha256": "a5c55a00df167746840b382ff503895ad8da6000d5ba838569c1eba710b4877c"
+    },
+    {
+      "path": "src/vendor/ppp/mppe.c",
+      "bytes": 8620,
+      "sha256": "249a0a223486e43567e5c65082cf845bd6183574270d4afe12c31901751a14be"
+    },
+    {
+      "path": "src/vendor/ppp/mppe.h",
+      "bytes": 5308,
+      "sha256": "c4b773ecf0cd6b7436262e306f0c2d6953fdf6e1bc9e86f13c8b1aaa3309bd88"
+    },
+    {
+      "path": "src/vendor/ppp/options.h",
+      "bytes": 4424,
+      "sha256": "f424326c67613d6e65eb8df1c84034014330281bca234e49200f06463fcd7e1a"
+    },
+    {
+      "path": "src/vendor/ppp/pathnames.h",
+      "bytes": 4718,
+      "sha256": "6370e080a39f1d4dd2c76d00d932f69ab23faa1047c66b85e412b563220af3e4"
+    },
+    {
+      "path": "src/vendor/ppp/peap.c",
+      "bytes": 24064,
+      "sha256": "e4b3b633397ff0c2c9901f7bd80cf003923dcc55949289a283f4d621deee311d"
+    },
+    {
+      "path": "src/vendor/ppp/peap.h",
+      "bytes": 3050,
+      "sha256": "01f2de53fd774d1885c845fa22a4188c6bc3fa12b102a529e8e1deac8bfb6d93"
+    },
+    {
+      "path": "src/vendor/ppp/ppp-des.c",
+      "bytes": 28286,
+      "sha256": "b19d125eef586de0ef174af79c1d5987e25aac4fcca0b8e885751c3bf158c67d"
+    },
+    {
+      "path": "src/vendor/ppp/ppp-md4.c",
+      "bytes": 12983,
+      "sha256": "64e65de6192d201ed65c047092f50459262055fd170546c6b67c7288b3a2c4e5"
+    },
+    {
+      "path": "src/vendor/ppp/ppp-md5.c",
+      "bytes": 15612,
+      "sha256": "fa349434ced3bd48d95f74f21e95720d7362cdf301af6f49dbb647509f9a4408"
+    },
+    {
+      "path": "src/vendor/ppp/ppp-sha1.c",
+      "bytes": 9479,
+      "sha256": "72c1f086a3b26e71886d863bedd29626a90c92a281e9bb3cac7b6f176f6cb1e6"
+    },
+    {
+      "path": "src/vendor/ppp/pppd-private.h",
+      "bytes": 6145,
+      "sha256": "28e5365173525ba66abe0b12b6a7113b0e5f7a036a15cee098d6eb0c8a31f963"
+    },
+    {
+      "path": "src/vendor/ppp/pppdconf.h",
+      "bytes": 329,
+      "sha256": "182f8b3faf537c4432abc150100d47df39f03cb414a44a9bd2aaf1e1a6f322df"
+    },
+    {
+      "path": "src/vendor/ppp/session.h",
+      "bytes": 2989,
+      "sha256": "c9cf83e19b8b9b5c8f2025b0a43d860a37536be156c2cc2d2b258a4ac27f4845"
+    },
+    {
+      "path": "src/vendor/ppp/tls.c",
+      "bytes": 13254,
+      "sha256": "717a3d0758304d18b1036cffed1e9dec9821aab7c67ba809227cf105fa8610fb"
+    },
+    {
+      "path": "src/vendor/ppp/tls.h",
+      "bytes": 2430,
+      "sha256": "11489555740b5dfec7217f7efe749e6800f0ebcac85acc08f910eb70aa53f527"
+    },
+    {
+      "path": "src/vendor/ppp/upap.c",
+      "bytes": 14997,
+      "sha256": "074e85daad29bffb474caf8839def50a9d33c8c492addfbd99c607e0b4561ce9"
+    },
+    {
+      "path": "src/vendor/ppp/upap.h",
+      "bytes": 4993,
+      "sha256": "4b5f0a05e4a5510a106d603f60ee55bb96df9e6f026c8b9c280ba565d388d90d"
+    },
+    {
+      "path": "src/vendor/vj-codec/ip.original.h",
+      "bytes": 5139,
+      "sha256": "5e7a49c1cf04ebae8577ec0b6c9c715200307a5a37750b01a8b68e6111efb0cb"
+    },
+    {
+      "path": "src/vendor/vj-codec/slhc.c",
+      "bytes": 18183,
+      "sha256": "f4b959021c842a2d32f04481014b36deb6a6ae9eb3c25facad2a355c12cfbf57"
+    },
+    {
+      "path": "src/vendor/vj-codec/slhc.original.c",
+      "bytes": 20064,
+      "sha256": "2823af097fc8705086c7b401e970354a896ccfd911b23aa322c7797523851e5a"
+    },
+    {
+      "path": "src/vendor/vj-codec/slhc_vj.h",
+      "bytes": 6809,
+      "sha256": "f8d529790937c0b3af10a71b23f804f708431776751082c610d10c54c22ac230"
+    },
+    {
+      "path": "src/vendor/vj-codec/slhc_vj.original.h",
+      "bytes": 6831,
+      "sha256": "f3af39db8b9e1f585387e633f58a366484bba60394cd1b53180adfd427f4edf5"
+    },
+    {
+      "path": "src/vendor/vj-codec/tcp.original.h",
+      "bytes": 18353,
+      "sha256": "6d981a5001fb09d406e1eb5046c1809743b9618e66d4d6f3360837986dc4c211"
+    },
+    {
+      "path": "src/vendor/vj-codec/vj_compat.h",
+      "bytes": 2076,
+      "sha256": "420326820969d34ee844923a70465f52589d85511fbd933c139b975955f04c4b"
+    },
+    {
+      "path": "src/vendor/wintun/include/wintun.h",
+      "bytes": 10362,
+      "sha256": "510a5984fbf73efd21a61ada60edfe05e1a38a77c8c47f6d62e0ab1cdbdd460f"
+    },
+    {
+      "path": "src/vj_port.c",
+      "bytes": 2481,
+      "sha256": "3f83eb712a18dca6e65756e62c65da0883bc2cf6614375c4edecb72b60570c72"
+    },
+    {
+      "path": "src/vj_port.h",
+      "bytes": 940,
+      "sha256": "665cf4aca3663eacc00a86f19f59a9ec6494a9cb7d5b4ce019a4ee9c8b0edfc1"
+    }
+  ]
+}

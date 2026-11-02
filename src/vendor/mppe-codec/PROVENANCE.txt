@@ -1,0 +1,23 @@
+Upstream: Linux v6.1 tag, immutable release source.
+Files retrieved from https://raw.githubusercontent.com/torvalds/linux/v6.1/ :
+ drivers/net/ppp/ppp_mppe.c
+ drivers/net/ppp/ppp_mppe.h
+ lib/crypto/arc4.c
+ include/crypto/arc4.h
+
+Original copies under upstream/; SHA256:
+c8c03dee91f46fabf78d7549c77befaffc2620ca036ed65719a64671c1e2d8e3  upstream/ppp_mppe.c
+fce28ad7db46c234a70bf8d721ba8ad96c7169b0e8461da5561a0bd2877df35c  upstream/ppp_mppe.h
+d675cd2c5c95c49e3a2884d70627c76386b5184605929c734ce959b0397d4c83  upstream/arc4.c
+e43e7020d67065497c17a6fa4a7973394dbd2124c88ddb184aa01b10cd5e2748  upstream/arc4.h
+
+Adaptations: static descriptor replaces kernel module registration; shared compressor
+ABI uses ordinary contiguous buffers; EVP SHA1 replaces kernel shash API using
+the existing static OpenSSL dependency; Linux ARC4 algorithm unchanged except
+types, static linkage and unsigned loop indices; secure wipe replaces sensitive
+free; bounds/options checked before reads; unsupported bits rejected; cryptographic
+failures return fatal/drop status; master/session key debug output removed.
+Original algorithm/state machines, rekey cadence, loss and reset behavior retained.
+MPPE40/128 only, with upstream stateful/stateless handling. MPPC/56 unsupported.
+The host must reject plaintext network packets while MPPE is required/active.
+Linux ARC4 source is GPL-2.0-or-later; retain source and notices on redistribution.

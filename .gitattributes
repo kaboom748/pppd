@@ -1,0 +1,17 @@
+# New documentation/build scripts use LF. Preserve imported source bytes.
+* text=auto
+*.md text eol=lf
+*.json text eol=lf
+/LICENSE text eol=lf
+/.gitignore text eol=lf
+/.gitattributes text eol=lf
+/scripts/*.sh text eol=lf
+/scripts/*.py text eol=lf
+/scripts/*.ps1 text eol=lf
+/.github/workflows/*.yml text eol=lf
+/src/** -text
+/upstream/** -text
+/third_party/** -text
+/patches/linux-bsd32/** -text
+/tests/*.c -text
+/licenses/** -text

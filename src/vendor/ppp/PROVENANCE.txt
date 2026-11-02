@@ -1,0 +1,43 @@
+pppd.exe Windows 0.4.0 - source provenance
+
+Base: ppp-project/ppp, pppd 2.5.5,
+commit 4dc474cacfa045d1ee1b10c388d8c864e3ed3b30.
+https://github.com/ppp-project/ppp/tree/4dc474cacfa045d1ee1b10c388d8c864e3ed3b30
+
+The original protocol machines and algorithms are retained for FSM, LCP,
+IPCP, IPv6CP/EUI64, PAP, CHAP-MD5, MSCHAPv1/v2, EAP, EAP-TLS, PEAP client
+CBCP client and CCP. CORE-PROVENANCE.txt and AUTH-PROVENANCE.txt identify the
+extracted upstream functions, host adaptations and demonstrated corrections.
+Those files also describe upstream limitations; this is not a complete Linux
+pppd or kernel port.
+
+LCP Echo periodic/adaptive scheduling and RTT measurement are included.
+IPCP address/DNS/WINS negotiation and IPv6CP use native Windows host callbacks.
+Authentication is completed before NCPs or IP data are allowed. No simulated
+success is used for an unavailable authentication or packet-processing engine.
+
+pppd-private.h, pppdconf.h, auth_port.c and engine.c provide the Windows host
+contract. Async framing/FCS, queues, clocks, COM, IPC, Wintun and IP Helper
+integration are host code. platform_network.inc configures owned IPv4/IPv6
+resources, DNS and optional IPv4 default routes. It also preserves the
+negotiated IPv6CP source selection and restores original automatic-address
+flags on teardown. These platform adapters are not copied Linux kernel code.
+
+CCP negotiation and data processing now use retained pppd CCP and userspace
+adaptations of Linux VJ, BSD-Compress, PPP Deflate/zlib and MPPE codecs.
+The per-codec provenance records identify original sources, hashes, adaptations
+and notices. MPPE key derivation remains in pppd/mppe.c; packet encryption is
+in src/mppe_port.c and vendor/mppe-codec. Multilink is not implemented.
+CBCP requests a callback from the peer and exits14; there is no Windows modem dialer.
+
+The command catalogue lists supported, limited and unavailable options. Unix
+scripts, PAM/systemd integration, Linux binary plugins and alternative kernel
+transports are not claimed. TLS uses statically linked OpenSSL3.5.9; its license
+is provided in OPENSSL-LICENSE.txt. Protocol notices are preserved in source
+headers and LICENCES.txt. Wintun has its separate WINTUN-LICENSE.txt.
+
+Required acknowledgments:
+This product includes software developed by Computing Services
+at Carnegie Mellon University (http://www.cmu.edu/computing/).
+This product includes software developed by Pedro Roque Marques
+<pedro_m@yahoo.com>.

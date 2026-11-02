@@ -1,0 +1,11 @@
+Linux VJ codec source from official torvalds/linux repository.
+Pinned commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Files: drivers/net/slip/slhc.c, include/net/slhc_vj.h, include/uapi/linux/ip.h, include/uapi/linux/tcp.h.
+VJ algorithm and state machine retained. Copyrights retained.
+Host adaptations: kernel includes/allocations replaced by vj_compat.h; packed UAPI wire layouts; portable IPv4 checksum; non-IP stub branch/module metadata removed; unaligned TCP-checksum loads/stores use memcpy. Two lookahead checks use remaining byte counts to avoid beyond-end pointer arithmetic. vj_port.c owns worst-case120-byte header reconstruction space and rejects output beyond caller MRU. No algorithm substituted.
+Original SHA256:
+2823af097fc8705086c7b401e970354a896ccfd911b23aa322c7797523851e5a slhc.original.c
+f3af39db8b9e1f585387e633f58a366484bba60394cd1b53180adfd427f4edf5 slhc_vj.original.h
+5e7a49c1cf04ebae8577ec0b6c9c715200307a5a37750b01a8b68e6111efb0cb ip.original.h
+6d981a5001fb09d406e1eb5046c1809743b9618e66d4d6f3360837986dc4c211 tcp.original.h
+Signed/unsigned comparison casts added for -Wall -Wextra -Werror; ranges/algorithm unchanged.

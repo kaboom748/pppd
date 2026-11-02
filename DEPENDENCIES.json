@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "source_distribution": "Complete extracted trees; no source submodules or build-time source downloads",
+  "components": [
+    {
+      "name": "ppp-project/ppp",
+      "version": "2.5.5",
+      "commit": "4dc474cacfa045d1ee1b10c388d8c864e3ed3b30",
+      "directory": "upstream/ppp",
+      "url": "https://codeload.github.com/ppp-project/ppp/tar.gz/4dc474cacfa045d1ee1b10c388d8c864e3ed3b30",
+      "archive_sha256": "bca611a371c4e12276d7f6e09f08c02c750daeaa90c76009512bfcda3fe8e42e",
+      "purpose": "Full native Linux build source; Windows adaptations are separately retained in src/vendor/ppp"
+    },
+    {
+      "name": "OpenSSL",
+      "version": "3.5.9",
+      "directory": "third_party/openssl-3.5.9",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-3.5.9/openssl-3.5.9.tar.gz",
+      "archive_sha256": "603f5602e2eef00d77fbd429d34dcd5822bb301757a1bc9cdb24c670f1eb859a",
+      "purpose": "Complete static-build dependency for the Windows target; native Linux pppd uses the system development libraries"
+    },
+    {
+      "name": "Wintun",
+      "version": "0.14.1",
+      "included": "API header and retained notices only; no DLL",
+      "url": "https://www.wintun.net/builds/wintun-0.14.1.zip",
+      "archive_sha256": "07c256185d6ee3652e09fa55c0b673e2624b565e02c4b9091c79ca7d2f24ef51",
+      "runtime_archive_member": "wintun/bin/amd64/wintun.dll",
+      "runtime_sha256": "e5da8447dc2c320edc0fc52fa01885c103de8c118481f683643cacc3220dafce"
+    }
+  ],
+  "adapted_codec_provenance": [
+    "src/vendor/codecs/COMPRESSION-PROVENANCE.json",
+    "src/vendor/vj-codec/PROVENANCE.txt",
+    "src/vendor/mppe-codec/PROVENANCE.txt",
+    "docs/PROVENANCE.md"
+  ]
+}

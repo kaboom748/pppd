@@ -1,0 +1,13 @@
+# Generated local builds and runtime data; retain upstream test fixtures.
+/.build/
+/dist/
+/logs/
+/runtime/
+/local-config/
+/pppd.exe
+/wintun.dll
+/.vscode/
+/.idea/
+/Thumbs.db
+/Desktop.ini
+

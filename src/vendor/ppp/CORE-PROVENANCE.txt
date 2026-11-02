@@ -1,0 +1,36 @@
+Userspace core extension, based on ppp-project/ppp pppd 2.5.5
+commit 4dc474cacfa045d1ee1b10c388d8c864e3ed3b30.
+
+LCP: original negotiation callbacks and Echo/RTT state, timer and wire algorithms
+are retained. The previous authentication-disabling macros and Echo stubs are
+removed. Windows options are configured explicitly by the host instead of using
+the Unix option table. Malformed short incoming Echo-Requests are rejected before
+writing a Magic Number. Multilink, endpoint and LQR remain disabled because no
+matching data/backend is implemented. RTT file I/O replaces Unix mmap with a
+native FILE-backed buffer; the original 8192-byte network-order ring format and
+measurement calculations are retained. The engine supplies monotonic timestamps
+and real packet counters for adaptive Echo.
+
+IPCP: original negotiation callbacks are retained, with original address
+consistency and authorization checks restored at the UP transition. Windows
+receives negotiated DNS/WINS and addresses via real host callbacks. Unix scripts,
+resolv.conf, proxy ARP and direct route manipulations are not copied. VJ negotiation now connects to the Linux VJ userspace codec in vj_port.c.
+
+IPv6CP and EUI64: original init/open/close/lowerup/lowerdown/input/protrej/resetci,
+CI length/add/ack/nak/rej/request/finished and text-formatting routines are
+retained. Original UP checks for missing or equal interface identifiers are
+retained. Linux demand and interface syscalls are replaced with explicit Windows
+host callbacks. IPv6 compression is disabled. Persistent hardware-derived IDs
+and Unix scripts are not advertised without a corresponding backend.
+
+engine.c: existing native async framing and host adapter are extended to dispatch
+the original authentication and IPv6CP code, gate IPv4 and IPv6 independently,
+support the upstream MRU ceiling 16384, and configure retained FSM parameters.
+Authentication must complete before any network protocol starts. Idle and
+maximum-connect timeout decisions follow auth.c, using host activity timestamps
+instead of Linux get_idle_time. The 0.4.0 data path adds upstream CCP and userspace adaptations of the Linux VJ, BSD, Deflate and MPPE codecs. Multilink remains absent.
+
+The historical 0.3 adaptation used work/extend_core.py and the pinned original
+source archive. The delivered 0.4 C sources are the build inputs; its subsequent
+CCP/data-host adaptations are described by CCP-PROVENANCE.json and codec manifests.
+Original source and header notices are preserved in every retained file.
