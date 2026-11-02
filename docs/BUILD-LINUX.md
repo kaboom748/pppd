@@ -138,6 +138,21 @@ Main output:
 .build/linux-native/obj/pppd/pppd
 ```
 
+Native Linux pppd requires its system options file to exist when invoked
+without privileges, including for these information commands. A development
+machine may already have `/etc/ppp/options` from a distribution PPP package;
+a fresh CI runner may not. Create an empty file if it does not exist:
+
+```sh
+if [ ! -e /etc/ppp/options ]; then
+    sudo install -D -m 0644 /dev/null /etc/ppp/options
+fi
+```
+
+This is the native Linux configuration policy, independent of the Windows
+standalone executable. The GitHub Actions workflow prepares an empty file on
+its disposable Linux runner before executing the checks.
+
 Check startup without starting a link:
 
 ```sh
