@@ -21,6 +21,9 @@ jobs:
         run: JOBS=2 bash scripts/build-windows.sh
       - name: Build native Linux pppd
         run: JOBS=2 bash scripts/build-linux-native.sh
+      - name: Prepare native Linux configuration for smoke checks
+        # The disposable runner needs the system options file for non-root pppd.
+        run: sudo install -D -m 0644 /dev/null /etc/ppp/options
       - name: Native Linux information-only checks
         run: |
           .build/linux-native/obj/pppd/pppd --version
